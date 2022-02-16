@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\category;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -14,7 +15,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+
+    $categories= category::latest('id')->paginate(5);
+    return view('admin.Categories.index', compact('categories'));
+
     }
 
     /**
@@ -24,7 +28,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.Categories.create');
     }
 
     /**
@@ -35,7 +39,23 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $request->validate([
+
+        'name'=>'required|unique:categories,name'
+        ]);
+
+        category::create([
+     'name'=> $request->name,
+     'slug'=> Str::slug($request->name)
+    ]);
+
+    return redirect()->route('categories.index')->with('success', 'Category Added Successfully');
+
+
+
+
+
     }
 
     /**
@@ -57,7 +77,7 @@ class CategoryController extends Controller
      */
     public function edit(category $category)
     {
-        //
+        return view('admin.Categories.edit',compact('category'));
     }
 
     /**
@@ -69,7 +89,23 @@ class CategoryController extends Controller
      */
     public function update(Request $request, category $category)
     {
-        //
+
+        $request->validate([
+
+            'name'=>'required'
+            ]);
+            $category->update([
+                'name'=> $request->name,
+                'slug'=> Str::slug($request->name)
+               ]);
+
+               return redirect()->route('categories.index')->with('success','Category Updated Successfully');
+
+
+
+
+
+
     }
 
     /**
@@ -80,6 +116,7 @@ class CategoryController extends Controller
      */
     public function destroy(category $category)
     {
-        //
+        $category->delete();
+        return redirect()->route('categories.index')->with('success','Category Deleted Successfully');
     }
 }

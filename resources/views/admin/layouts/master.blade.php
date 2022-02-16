@@ -32,7 +32,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('admin.index')}}">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -44,7 +44,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="{{route('admin.index')}}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -62,13 +62,13 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-list-alt"></i>
-                    <span>Products</span>
+                    <span>Categories</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
 
-                        <a class="collapse-item" href="buttons.html">Add products</a>
-                        <a class="collapse-item" href="cards.html">All products</a>
+                        <a class="collapse-item" href="{{route('categories.create')}}">Add Categories</a>
+                        <a class="collapse-item" href="{{route('categories.index')}}">All Categories</a>
                     </div>
                 </div>
             </li>
@@ -76,13 +76,13 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Categorey"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-list-alt"></i>
-                    <span>Categories</span>
+                    <span>Clients</span>
                 </a>
                 <div id="Categorey" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
 
-                        <a class="collapse-item" href="buttons.html">Add Categories</a>
-                        <a class="collapse-item" href="cards.html">All Categories</a>
+                        <a class="collapse-item" href="{{route('clients.create')}}">Add Clients</a>
+                        <a class="collapse-item" href="{{route('clients.index')}}">All Clients</a>
                     </div>
                 </div>
             </li>
@@ -90,13 +90,13 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Clients"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-list-alt"></i>
-                    <span>Clients</span>
+                    <span>products</span>
                 </a>
                 <div id="Clients" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
 
-                        <a class="collapse-item" href="buttons.html">Add Clients</a>
-                        <a class="collapse-item" href="cards.html">All Clients</a>
+                        <a class="collapse-item" href="buttons.html">Add Products</a>
+                        <a class="collapse-item" href="cards.html">All Products</a>
                     </div>
                 </div>
             </li>

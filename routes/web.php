@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\admincontroller;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ProductsController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -21,7 +24,11 @@ Route::get('/', function () {
 
 Route::prefix('admin')->group(function(){
 
-    Route::get('/',[admincontroller::class,'index'])->name('index');
+    Route::get('/',[admincontroller::class,'index'])->name('admin.index');
+    Route::resource('/categories',CategoryController::class);
+    Route::resource('/clients',ClientController::class);
+    Route::resource('/products',ProductsController::class);
+
 
 
 });

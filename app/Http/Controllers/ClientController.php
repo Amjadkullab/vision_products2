@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\client;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
@@ -14,7 +15,8 @@ class ClientController extends Controller
      */
     public function index()
     {
-        //
+        $clients= client::latest('id')->paginate(5);
+        return view('admin.Clients.index', compact('clients'));
     }
 
     /**
@@ -24,7 +26,8 @@ class ClientController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.Clients.create');
+
     }
 
     /**
@@ -35,7 +38,14 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'=>'required|unique:clients,name'
+        ]);
+        client::create([
+            'name'=> $request->name,
+            'slug'=> Str::slug($request->name)
+        ]);
+        return redirect()->route('clients.index')->with('success', 'Client Added Successfully');
     }
 
     /**
@@ -57,7 +67,7 @@ class ClientController extends Controller
      */
     public function edit(client $client)
     {
-        //
+       return view('admin.Clients.edit', compact('client'));
     }
 
     /**
@@ -69,7 +79,16 @@ class ClientController extends Controller
      */
     public function update(Request $request, client $client)
     {
-        //
+        $request->validate([
+            'name'=>'required'
+        ]);
+
+        $client->update([
+           'name'=> $request->name,
+           'slug'=> Str::slug($request->name)
+
+        ]);
+        return redirect()->route('clients.index')->with('success','Client Updated Successfully');
     }
 
     /**
@@ -80,6 +99,9 @@ class ClientController extends Controller
      */
     public function destroy(client $client)
     {
-        //
+        $client->delete();
+        return redirect()->route('clients.index')->with('success','Client Deleted Successfully');
+
+
     }
 }

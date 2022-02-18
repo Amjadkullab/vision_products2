@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\category;
+use App\Models\client;
 use App\Models\products;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class ProductsController extends Controller
@@ -14,7 +17,8 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        //
+        $products = products::latest('id')->paginate(5);
+        return view('admin.Products.index', compact('products'));
     }
 
     /**
@@ -24,7 +28,13 @@ class ProductsController extends Controller
      */
     public function create()
     {
-        //
+
+      $categories = category::select(['id','name'])->get();
+      $clients = client::select(['id','name'])->get();
+
+
+
+        return view('admin.Products.create',compact('categories'),compact('clients'));
     }
 
     /**
@@ -35,7 +45,41 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+         'name' => 'required',
+         'content' => 'required',
+         'image' => 'required|image',
+         'price' => 'required',
+         'category_id' => 'required',
+         'client_id' => 'required'
+
+        ]);
+
+      $ex = $request->file('image')->getClientOriginalExtension();
+      $new_img_name = 'vision_products_'. time() . '.'. $ex;
+      $request->file('image')->move(public_path('uploads'),$new_img_name);
+
+      products::create([
+
+       'name' => $request->name,
+       'slug' => Str::slug($request->name),
+       'content' => $request->content,
+       'image' => $new_img_name,
+       'price' => $request->price,
+       'category_id'=> $request->category_id,
+       'client_id' => $request->client_id
+      ]);
+
+      return redirect()->route('products.index')->with('success', 'Product Added Successfully');
+
+
+
+
+
+
+
+
+
     }
 
     /**
@@ -80,6 +124,7 @@ class ProductsController extends Controller
      */
     public function destroy(products $products)
     {
-        //
+        $products->delete();
+        return redirect()->route('products.index', compact('products'))->with('success', 'Product Deleted Successfully');
     }
 }

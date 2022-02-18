@@ -95,8 +95,8 @@
                 <div id="Clients" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
 
-                        <a class="collapse-item" href="buttons.html">Add Products</a>
-                        <a class="collapse-item" href="cards.html">All Products</a>
+                        <a class="collapse-item" href="{{route('products.create')}}">Add Products</a>
+                        <a class="collapse-item" href="{{route('products.index')}}">All Products</a>
                     </div>
                 </div>
             </li>

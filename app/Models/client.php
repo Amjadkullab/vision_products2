@@ -9,4 +9,6 @@ class client extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+  
 }

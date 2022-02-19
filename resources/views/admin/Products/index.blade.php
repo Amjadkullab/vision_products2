@@ -37,9 +37,10 @@
            <td>{{$product->created_at->format('d - m - y')}}</td>
            <td>
           <a class="btn btn-sm btn-primary" href="{{route('products.edit',$product->id)}}"><i class="fas fa-edit"></i></a>
-           <form class="d-inline" action="{{route('products.destroy', $product->id)}}">
+           <form class="d-inline" action="{{route('products.destroy', $product->id)}}" method="post">
               @csrf
-              <button class="btn btn-sm btn-danger"><i class="fas fa-times"></i></button>
+              @method('DELETE')
+              <button onclick="return confirm('are you sure ?')" class="btn btn-sm btn-danger"><i class="fas fa-times"></i></button>
 
         </form>
 

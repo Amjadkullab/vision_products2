@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug');
-            $table->string('content');
+            $table->sting('content');
             $table->string('image');
             $table->string('price');
             $table->foreignId('category_id');

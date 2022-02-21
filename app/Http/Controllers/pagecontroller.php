@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\category;
+use App\Mail\TestMail;
 use App\Models\client;
 use App\Models\product;
+use App\Models\category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class pagecontroller extends Controller
 {
@@ -41,6 +43,33 @@ public function contact(){
 
     return view('front.contact');
 }
+
+public function contactsubmit(Request $request){
+
+    $request->validate([
+
+        'name' => 'required',
+        'email' => 'required |email',
+        'number' => 'required',
+        'message' => 'required',
+    ]);
+
+
+    Mail::to('admin@gmail.com')->Send(new TestMail($request->except('_token')));
+
+    return redirect()->route('homepage');
+
+
+
+
+
+
+
+}
+
+
+
+
 
 
 
